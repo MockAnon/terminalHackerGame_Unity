@@ -82,10 +82,11 @@ public class Hacker : MonoBehaviour
         else
         {
             Terminal.WriteLine("Jocelyn is not Happy with YOU.");
-            print("Jocelyn is not happy with you.");
+            //print("Jocelyn is not happy with you.");
+            StartGame();
         }
     }
-
+    
 
     private void StartGame()
     {
@@ -109,9 +110,9 @@ public class Hacker : MonoBehaviour
                 Debug.LogError("Invalid level number");
                 break;
         }
-        Terminal.WriteLine("please enter your password:");
+        Terminal.WriteLine("Enter your password: " + password.Anagram());
     }
-
+    font
 
     void CheckPassword(string input)
     {
