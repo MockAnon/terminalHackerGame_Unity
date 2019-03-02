@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Hacker : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class Hacker : MonoBehaviour
         print("Hello " + "World");
 
     }
+
+    //void Update() {
+    //    int index = Random.Range(0, level1Passwords.Length -1);
+    //    print(index);
+    //}
 
     void ShowMainMenu()
     {
@@ -83,25 +89,79 @@ public class Hacker : MonoBehaviour
 
     private void StartGame()
     {
+        //int Password02 = Random.Range(0, 5);
+        //print(level1Passwords[Password01]);
+        //print(level2Passwords[Password02]);
+
         currentScreen = Screen.Password;
         Terminal.WriteLine("You have chosen level " + level);
-        Terminal.WriteLine("please enter your password: s");
+        switch(level)
+        {
+            case 1:
+                int index = Random.Range(0, level1Passwords.Length - 1);
+                password = level1Passwords[index];
+                break;
+            case 2:
+                int index2 = Random.Range(0, level1Passwords.Length - 1);
+                password = level2Passwords[index2];
+                break;
+            default:
+                Debug.LogError("Invalid level number");
+                break;
+        }
+        Terminal.WriteLine("please enter your password:");
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-
-    }
 
     void CheckPassword(string input)
     {
-        if (input == password) {
-            Terminal.WriteLine("WELL DONE!");
+        if (input == password)
+        {
+            DisplayWinScreen();
         }
         else
         {
+            
             Terminal.WriteLine("Wrong Password Please Try Again");
+        }
+    }
+
+    void DisplayWinScreen()
+    {
+        currentScreen = Screen.Win;
+        Terminal.ClearScreen();
+        ShowLevelReward();
+    }
+
+    void ShowLevelReward()
+    {
+        switch (level)
+        {
+            case 1:
+                Terminal.WriteLine("Have a book...");
+                Terminal.WriteLine(@"
+    _______
+   /      /,
+  /      //
+ /______//
+(______(/
+                ");
+                break;
+            case 2:
+                Terminal.WriteLine("Have a book...");
+                Terminal.WriteLine(@"
+  (¯`·.¸¸.·´¯`·.¸¸.·´¯)
+  ( \                 / )
+ ( \ )               ( / )
+( ) (     You WIN!    ) ( )
+ ( / )               ( \ )
+  ( /                 \ )
+   (_.·´¯`·.¸¸.·´¯`·.¸_)
+                ");
+                break;
+            default:
+                Debug.LogError("Invalid level reached");
+                break;
         }
     }
 }
